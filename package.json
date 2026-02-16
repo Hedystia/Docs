@@ -12,7 +12,7 @@
   "dependencies": {
     "@astrojs/starlight": "^0.37.6",
     "@astrojs/starlight-docsearch": "^0.6.1",
-    "astro": "^5.17.1"
+    "astro": "^5.17.2"
   },
   "devDependencies": {
     "typescript": "^5.9.3"
