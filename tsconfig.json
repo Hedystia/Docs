@@ -1,3 +1,15 @@
 {
-  "extends": "astro/tsconfigs/strict"
+  "compilerOptions": {
+    "lib": ["ESNext", "DOM.Iterable", "DOM"],
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+
+    "allowJs": true,
+    "strict": true,
+    "jsx": "preserve",
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true
+  }
 }
