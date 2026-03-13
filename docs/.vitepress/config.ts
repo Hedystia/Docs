@@ -283,7 +283,7 @@ export default defineConfig({
       label: "On this page",
     },
     socialLinks: [
-      { icon: "github", link: "https://github.com/Hedystia/Framework" },
+      { icon: "github", link: "https://github.com/Hedystia/Hedystia" },
       { icon: "discord", link: "https://hedystia.com/discord" },
     ],
     editLink: {
