@@ -260,6 +260,75 @@ const subscription = client.commands.subscribe(({ data }) => {
 // (via the subscription's message mechanism)
 ```
 
+## WebSocket Connections
+
+Connect to a WebSocket endpoint using `.ws()`:
+
+```ts twoslash
+// @noErrors
+import Hedystia from 'hedystia'
+import { createClient } from '@hedystia/client'
+
+const app = new Hedystia()
+  .ws('/chat', {
+    message: (ws, msg) => ws.send(`Echo: ${msg}`),
+  })
+
+const client = createClient<typeof app>('http://localhost:3000')
+
+// Connect to WebSocket
+const connection = client.chat.ws((ws) => {
+  // Connect event
+  ws.onConnect(() => {
+    console.log('Connected')
+    ws.send('Hello server!')
+  })
+
+  // Receive messages
+  ws.onMessage((message) => {
+    console.log('Received:', message)
+  })
+
+  // Handle errors
+  ws.onError((error) => {
+    console.error('WebSocket error:', error)
+  })
+
+  // Disconnection event
+  ws.onDisconnect(() => {
+    console.log('Disconnected')
+  })
+})
+
+// Close the connection
+connection.disconnect()
+```
+
+### WebSocket API
+
+The `ws` object in the callback provides:
+
+- **`send(message)`** — Send a message to the server
+- **`disconnect()`** — Close the connection
+- **`onConnect(callback)`** — Called when connected
+- **`onMessage(callback)`** — Called when receiving a message
+- **`onError(callback)`** — Called on connection errors
+- **`onDisconnect(callback)`** — Called when disconnected
+
+### Automatic Reconnection
+
+The client includes automatic reconnection logic with exponential backoff:
+
+```typescript
+const connection = client.chat.ws((ws) => {
+  ws.onDisconnect(() => {
+    console.log('Connection lost, will attempt to reconnect...')
+  })
+})
+
+// Auto-reconnects with backoff
+```
+
 ## Response Format
 
 By default, responses are parsed as JSON. You can override this:

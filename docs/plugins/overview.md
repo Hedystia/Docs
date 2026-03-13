@@ -8,6 +8,13 @@ Hedystia's plugin system is simple: a plugin is a Hedystia sub-app (or an object
 |---|---|---|
 | Swagger | `@hedystia/swagger` | OpenAPI docs and Swagger UI |
 | Adapter | `@hedystia/adapter` | Run Hedystia on Node.js and other runtimes |
+| Types | `@hedystia/types` | Generate type definitions for any framework |
+
+## Quick Reference
+
+- **[Types Plugin](/plugins/types)** — Generate fully-typed clients for Express, Hono, Fastify, or any framework
+- **[Swagger Plugin](/plugins/swagger)** — OpenAPI documentation and Swagger UI
+- **[Adapter Plugin](/plugins/adapter)** — Run Hedystia on Node.js and other runtimes
 
 ## Mounting Plugins
 

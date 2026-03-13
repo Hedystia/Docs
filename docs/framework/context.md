@@ -206,7 +206,7 @@ The HTTP method of the request.
 
 ### `publish`
 
-The publish function for WebSocket subscriptions. See [Subscriptions](/server/subscriptions).
+The publish function for WebSocket subscriptions. See [Subscriptions](/framework/subscriptions).
 
 ## Returning Responses
 
@@ -226,8 +226,14 @@ app.get('/json', () => ({ hello: 'world' }))
 // Plain text
 app.get('/text', () => 'Hello!')
 
-// Custom Response
-app.get('/custom', () =>
+// Custom status (simplified)
+app.get('/custom', ({ set }) => {
+  set.status(404)
+  return 'Not Found'
+})
+
+// Custom Response (manual)
+app.get('/manual', () =>
   new Response('Not Found', { status: 404 })
 )
 ```

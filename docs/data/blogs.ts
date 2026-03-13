@@ -8,6 +8,13 @@ export interface Blog {
 
 export const blogs: Blog[] = [
   {
+    title: "Hedystia 1.10 - Type Mastery",
+    href: "/blog/1.10",
+    cover: "/blog/1.10/cover.png",
+    detail: "Type-safe route testing, conditional routes, real-time WebSockets, and framework-agnostic type generation",
+    date: "12 Mar 2026",
+  },
+  {
     title: "Welcome to Hedystia",
     href: "/blog/welcome",
     cover: "/blog/welcome/cover.png",

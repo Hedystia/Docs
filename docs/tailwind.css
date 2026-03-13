@@ -1218,8 +1218,9 @@ div[class*='language-'] {
     @apply absolute;
 }
 
+.VPNavBarTitle.has-sidebar .title .VPImage.logo,
 .VPNavBarTitle .title .VPImage.logo {
-    @apply min-w-7 min-h-7;
+    @apply w-auto flex-shrink-0 min-w-6;
 }
 
 .VPNavBar.has-sidebar .content {

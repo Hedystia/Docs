@@ -76,10 +76,8 @@ app.onBeforeHandle(async (ctx, next) => {
 
   const auth = ctx.req.headers.get('authorization')
   if (!auth || !auth.startsWith('Bearer ')) {
-    return new Response(JSON.stringify({ message: 'Unauthorized' }), {
-      status: 401,
-      headers: { 'Content-Type': 'application/json' },
-    })
+    ctx.set.status(401)
+    return { message: 'Unauthorized' }
   }
   return next()
 })
@@ -101,11 +99,16 @@ app.onAfterHandle((response, ctx) => {
   // Add a custom header to every response
   const newHeaders = new Headers(response.headers)
   newHeaders.set('x-powered-by', 'Hedystia')
+  // Return the original response with new headers
   return new Response(response.body, {
     status: response.status,
     headers: newHeaders,
   })
 })
+
+:::tip
+While you can manually construct a `new Response()`, it's usually easier to modify the context or return plain values.
+:::
 ```
 
 ## `onMapResponse`
@@ -115,9 +118,8 @@ Transforms the raw handler return value into a `Response`. Runs before `onAfterH
 ```typescript
 app.onMapResponse((result, ctx) => {
   if (typeof result === 'string') {
-    return new Response(result, {
-      headers: { 'Content-Type': 'text/plain; charset=utf-8' },
-    })
+    ctx.set.headers.set('Content-Type', 'text/plain; charset=utf-8')
+    return result
   }
 })
 ```
@@ -147,10 +149,8 @@ app.onError((error, ctx) => {
   const status = error.statusCode ?? 500
   const message = error.message ?? 'Internal Server Error'
 
-  return new Response(JSON.stringify({ error: message }), {
-    status,
-    headers: { 'Content-Type': 'application/json' },
-  })
+  ctx.set.status(status)
+  return { error: message }
 })
 ```
 

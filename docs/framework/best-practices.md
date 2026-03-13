@@ -153,10 +153,8 @@ const app = new Hedystia()
       console.error('[UNHANDLED]', error)
     }
 
-    return Response.json(
-      { error: error.message ?? 'Internal Server Error' },
-      { status: error.statusCode ?? 500 }
-    )
+    ctx.set.status(error.statusCode ?? 500)
+    return { error: error.message ?? 'Internal Server Error' }
   })
 ```
 

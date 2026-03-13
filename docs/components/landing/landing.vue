@@ -79,7 +79,7 @@
                     </p>
                 </div>
 
-                <div class="grid lg:grid-cols-2 gap-8 relative">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 relative">
                     <!-- Column 1 -->
                     <div class="flex flex-col group h-full">
                         <div class="flex items-center justify-between mb-4 px-2">
@@ -290,43 +290,43 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import {
-    MegaphoneIcon,
-    ChevronRightIcon,
-    CopyIcon,
-    CheckIcon,
-    ServerIcon,
-    MonitorIcon,
-    ShieldCheckIcon,
-    ZapIcon,
-    WifiIcon,
-    BoxIcon,
-    LayersIcon,
-    BookOpenIcon
-} from 'lucide-vue-next'
+  BookOpenIcon,
+  BoxIcon,
+  CheckIcon,
+  ChevronRightIcon,
+  CopyIcon,
+  LayersIcon,
+  MegaphoneIcon,
+  MonitorIcon,
+  ServerIcon,
+  ShieldCheckIcon,
+  WifiIcon,
+  ZapIcon,
+} from "lucide-vue-next";
+import { ref } from "vue";
 
 const props = defineProps({
-    latestBlog: {
-        type: Object,
-        default: () => ({
-            title: 'Introducing V1.0 Engine',
-            href: '/framework/introduction'
-        })
-    }
-})
+  latestBlog: {
+    type: Object,
+    default: () => ({
+      title: "Introducing V1.0 Engine",
+      href: "/framework/introduction",
+    }),
+  },
+});
 
-const copied = ref(false)
+const copied = ref(false);
 
 const copyInstall = () => {
-    if (window.isSecureContext) {
-        navigator.clipboard.writeText('bun add hedystia')
-    }
-    copied.value = true
-    setTimeout(() => {
-        copied.value = false
-    }, 2000)
-}
+  if (window.isSecureContext) {
+    navigator.clipboard.writeText("bun add hedystia");
+  }
+  copied.value = true;
+  setTimeout(() => {
+    copied.value = false;
+  }, 2000);
+};
 </script>
 
 <style>
@@ -381,6 +381,11 @@ const copyInstall = () => {
 }
 .animate-marquee {
     animation: marquee 40s linear infinite;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 .animate-marquee:hover {

@@ -102,7 +102,8 @@ const app = new Hedystia()
     const status = error.statusCode ?? 500
     const message = error.message ?? 'Something went wrong'
 
-    return Response.json({ error: message, status }, { status })
+    ctx.set.status(status)
+    return { error: message, status }
   })
   .get('/crash', () => {
     throw new Error('Unexpected failure')

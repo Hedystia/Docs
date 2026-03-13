@@ -1,14 +1,11 @@
-import { defineConfig } from "vitepress";
-
 import { transformerTwoslash } from "@shikijs/vitepress-twoslash";
 import { createFileSystemTypesCache } from "@shikijs/vitepress-twoslash/cache-fs";
-
-import lightbox from "vitepress-plugin-lightbox";
-
 import tailwindcss from "@tailwindcss/vite";
-import { nodePolyfills } from "vite-plugin-node-polyfills";
-import { comlink } from "vite-plugin-comlink";
 import { fileURLToPath } from "url";
+import { comlink } from "vite-plugin-comlink";
+import { nodePolyfills } from "vite-plugin-node-polyfills";
+import { defineConfig } from "vitepress";
+import lightbox from "vitepress-plugin-lightbox";
 
 const description =
   "Hedystia is a modern TypeScript backend framework with end-to-end type safety, real-time subscriptions, and an intuitive developer experience.";
@@ -81,7 +78,7 @@ export default defineConfig({
       "meta",
       {
         property: "og:image",
-        content: "https://docs.hedystia.com/logo.png",
+        content: "https://docs.hedystia.com/og.png",
       },
     ],
     [
@@ -103,6 +100,13 @@ export default defineConfig({
       {
         property: "twitter:card",
         content: "summary_large_image",
+      },
+    ],
+    [
+      "meta",
+      {
+        property: "twitter:image",
+        content: "https://docs.hedystia.com/og.png",
       },
     ],
     [
@@ -178,22 +182,18 @@ export default defineConfig({
           items: [
             { text: "Introduction", link: "/framework/introduction" },
             { text: "Getting Started", link: "/framework/getting-started" },
+            { text: "Overview", link: "/framework/overview" },
             { text: "Routing", link: "/framework/routing" },
+            { text: "Handlers", link: "/framework/handlers" },
             { text: "Context", link: "/framework/context" },
             { text: "Validation", link: "/framework/validation" },
+            { text: "Testing", link: "/framework/test" },
+            { text: "Conditional Routes", link: "/framework/conditional-routes" },
+            { text: "Subscriptions", link: "/framework/subscriptions" },
             { text: "Middleware", link: "/framework/middleware" },
             { text: "Error Handling", link: "/framework/error-handling" },
             { text: "Plugins", link: "/framework/plugins" },
             { text: "Best Practices", link: "/framework/best-practices" },
-          ],
-        },
-        {
-          text: "Server",
-          collapsed: false,
-          items: [
-            { text: "Overview", link: "/server/overview" },
-            { text: "Handlers", link: "/server/handlers" },
-            { text: "Subscriptions", link: "/server/subscriptions" },
           ],
         },
         {
@@ -209,6 +209,7 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: "Overview", link: "/plugins/overview" },
+            { text: "Types", link: "/plugins/types" },
             { text: "Swagger", link: "/plugins/swagger" },
             { text: "Adapter", link: "/plugins/adapter" },
           ],
@@ -288,5 +289,34 @@ export default defineConfig({
       text: "Edit this page on GitHub",
       pattern: "https://github.com/Hedystia/Docs/edit/main/docs/:path",
     },
+  },
+  transformPageData(pageData) {
+    const path = pageData.relativePath;
+
+    if (path.startsWith("blog/")) {
+      const blogVersion = path.match(/blog\/([^/]+)\//)?.[1];
+      if (blogVersion) {
+        pageData.frontmatter ??= {};
+        pageData.frontmatter.head ??= [];
+        
+        const imagePath = `/blog/${blogVersion}/cover.png`;
+        
+        pageData.frontmatter.head.push([
+          "meta",
+          {
+            property: "og:image",
+            content: `https://docs.hedystia.com${imagePath}`,
+          },
+        ]);
+        
+        pageData.frontmatter.head.push([
+          "meta",
+          {
+            property: "twitter:image",
+            content: `https://docs.hedystia.com${imagePath}`,
+          },
+        ]);
+      }
+    }
   },
 });

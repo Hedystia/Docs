@@ -192,16 +192,29 @@ const app = new Hedystia()
 
 For routes that always return the same response, use `.static()`. These are optimized and bypass the normal handler pipeline.
 
+You can pass any value: objects, strings, JSON, or Response objects:
+
 ```ts twoslash
 // @noErrors
 import Hedystia, { h } from 'hedystia'
 const app = new Hedystia()
 // ---cut---
+// Static object
 app.static('/health', { status: 'ok' })
+
+// Static string
+app.static('/message', 'Hello from static!')
+
+// Static JSON
+app.static('/config', JSON.stringify({ debug: false }))
+
+// With schema for documentation
 app.static('/version', { version: '1.0.0' }, {
   response: h.object({ version: h.string() }),
 })
 ```
+
+All static routes are cached in memory for maximum performance. Content-Type is automatically detected based on the value.
 
 ## WebSocket Routes
 
@@ -253,3 +266,4 @@ Each route method accepts an optional schema object as its third argument:
 | `error` | Declares error response shape |
 | `description` | Used in Swagger docs |
 | `tags` | Used to group routes in Swagger |
+| `test` | Route testing function (inline tests) |
