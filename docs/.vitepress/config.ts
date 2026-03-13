@@ -16,6 +16,7 @@ export default defineConfig({
   description,
   ignoreDeadLinks: true,
   lastUpdated: false,
+  appearance: "dark",
   sitemap: {
     hostname: "https://docs.hedystia.com",
   },
@@ -298,9 +299,9 @@ export default defineConfig({
       if (blogVersion) {
         pageData.frontmatter ??= {};
         pageData.frontmatter.head ??= [];
-        
+
         const imagePath = `/blog/${blogVersion}/cover.png`;
-        
+
         pageData.frontmatter.head.push([
           "meta",
           {
@@ -308,7 +309,7 @@ export default defineConfig({
             content: `https://docs.hedystia.com${imagePath}`,
           },
         ]);
-        
+
         pageData.frontmatter.head.push([
           "meta",
           {

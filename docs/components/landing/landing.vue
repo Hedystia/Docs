@@ -62,7 +62,9 @@
 
                         <!-- Code Content Slot -->
                         <div class="p-4 sm:p-6 text-[13px] sm:text-[14px] leading-relaxed font-mono code-showcase-container flex-1">
-                            <slot name="hero-code"></slot>
+                            <ClientOnly>
+                                <slot name="hero-code"></slot>
+                            </ClientOnly>
                         </div>
                     </div>
                 </div>
@@ -101,7 +103,9 @@
                                 </div>
                             </div>
                              <div class="p-4 sm:p-5 code-showcase-container flex-1">
-                                 <slot name="server-code"></slot>
+                                 <ClientOnly>
+                                     <slot name="server-code"></slot>
+                                 </ClientOnly>
                              </div>
                         </div>
                     </div>
@@ -127,7 +131,9 @@
                                 </div>
                             </div>
                              <div class="p-4 sm:p-5 code-showcase-container flex-1">
-                                 <slot name="client-code"></slot>
+                                 <ClientOnly>
+                                     <slot name="client-code"></slot>
+                                 </ClientOnly>
                              </div>
                         </div>
                     </div>

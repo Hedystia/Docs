@@ -732,7 +732,7 @@ button.copy::after {
     @apply bg-mauve-50 dark:bg-mauve-800;
 }
 
-.VPSwitchAppearance {
+/* .VPSwitchAppearance {
     @apply clicky !size-7 !bg-transparent !border-0 opacity-80;
 
     &::before {
@@ -751,6 +751,10 @@ button.copy::after {
             }
         }
     }
+} */
+
+.VPSwitchAppearance {
+    display: none !important;
 }
 
 .VPLink.link.pager-link {
