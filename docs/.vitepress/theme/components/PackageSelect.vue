@@ -7,7 +7,8 @@ import {
   Database, 
   Zap, 
   BarChart3,
-  ChevronDown
+  ChevronDown,
+  ShieldCheck
 } from 'lucide-vue-next'
 
 const route = useRoute()
@@ -17,6 +18,7 @@ const selectRef = ref<HTMLElement | null>(null)
 
 const packages = [
   { name: 'Framework', id: 'framework', icon: Box, path: '/framework/introduction' },
+  { name: 'Validations', id: 'validations', icon: ShieldCheck, path: '/validations/start' },
   { name: 'Billing', id: 'billing', icon: CreditCard, path: '/billing/start' },
   { name: 'Cache', id: 'cache', icon: Zap, path: '/cache/start' },
   { name: 'DataBase', id: 'db', icon: Database, path: '/db/start' },
@@ -28,6 +30,7 @@ const currentPackage = computed(() => {
   if (route.path.includes('/cache')) return packages[2]
   if (route.path.includes('/db')) return packages[3]
   if (route.path.includes('/stats')) return packages[4]
+  if (route.path.includes('/validations')) return packages[5]
   return packages[0]
 })
 
