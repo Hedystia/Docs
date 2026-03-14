@@ -85,5 +85,5 @@ Hedystia is organized into focused packages:
 
 - [**Getting Started**](/framework/getting-started) — install and run your first server
 - [**Routing**](/framework/routing) — define HTTP routes with params, body, and response types
-- [**Validation**](/framework/validation) — use the `h` schema builder
+- [**Validation**](/validations/start) — use the `h` schema builder
 - [**Middleware**](/framework/middleware) — lifecycle hooks and request transforms

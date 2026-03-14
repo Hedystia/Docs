@@ -187,7 +187,6 @@ export default defineConfig({
             { text: "Routing", link: "/framework/routing" },
             { text: "Handlers", link: "/framework/handlers" },
             { text: "Context", link: "/framework/context" },
-            { text: "Validation", link: "/framework/validation" },
             { text: "Testing", link: "/framework/test" },
             { text: "Conditional Routes", link: "/framework/conditional-routes" },
             { text: "Subscriptions", link: "/framework/subscriptions" },
@@ -264,6 +263,15 @@ export default defineConfig({
           items: [
             { text: "Start", link: "/db/start" },
             { text: "Example", link: "/db/example" },
+          ],
+        },
+      ],
+      "/validations/": [
+        {
+          text: "Validations",
+          items: [
+            { text: "Welcome", link: "/validations/start" },
+            { text: "API Reference", link: "/validations/api-reference" },
           ],
         },
       ],

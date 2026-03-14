@@ -144,5 +144,5 @@ The client proxy mirrors your route structure. Nested paths map to chained prope
 
 - [**Routing**](/framework/routing) — full guide to HTTP routes, params, and groups
 - [**Context**](/framework/context) — everything available inside a handler
-- [**Validation**](/framework/validation) — the `h` schema reference
+- [**Validation**](/validations/start) — the `h` schema reference
 - [**Error Handling**](/framework/error-handling) — typed errors and custom responses
