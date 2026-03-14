@@ -26,11 +26,11 @@ const packages = [
 ]
 
 const currentPackage = computed(() => {
-  if (route.path.includes('/billing')) return packages[1]
-  if (route.path.includes('/cache')) return packages[2]
-  if (route.path.includes('/db')) return packages[3]
-  if (route.path.includes('/stats')) return packages[4]
-  if (route.path.includes('/validations')) return packages[5]
+  if (route.path.includes('/validations')) return packages[1]
+  if (route.path.includes('/billing')) return packages[2]
+  if (route.path.includes('/cache')) return packages[3]
+  if (route.path.includes('/db')) return packages[4]
+  if (route.path.includes('/stats')) return packages[5]
   return packages[0]
 })
 
