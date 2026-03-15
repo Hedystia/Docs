@@ -1,148 +1,239 @@
 ---
-title: Example
+title: Full Example
 ---
 
-```js
-const Database = require("@hedystia/db");
+# Full Example
 
-// Create a file named database.ht and enter the password
-const database = new Database("./database.ht", "password");
+A complete example showing schema definition, relations, queries, migrations, and caching.
 
-// Delete the table if it exists
-database.deleteTableIfExists("users");
-// Create a table if it doesn't exist with the specified columns
-database.createTable("users", ["id", "name", "email"]);
+## Project Structure
 
-database.insert("users", {
-	id: "1",
-	name: "John Doe",
-	email: "jdoe@example.com",
-});
-
-database.insert("users", {
-	id: "2",
-	name: "María",
-	email: "maria@example.com",
-});
-
-const users = database.select("users");
-
-console.log("----------------------------------");
-
-console.log(users);
-
-database.addColumn("users", "phone");
-
-database.addColumn("users", "lang", "en-US");
-
-const newUsersPhone = database.select("users");
-
-console.log("----------------------------------");
-
-console.log(newUsersPhone);
-
-database.deleteColumn("users", "phone");
-
-const oldUsersPhone = database.select("users");
-
-console.log("----------------------------------");
-
-console.log(oldUsersPhone);
-
-const userJohn = database.select("users", { name: "John Doe" });
-
-console.log("----------------------------------");
-
-console.log(userJohn);
-
-database.delete("users", { name: "María" });
-
-const users2 = database.select("users");
-
-console.log("----------------------------------");
-
-console.log(users2);
-
-database.update("users", { id: "1" }, { name: "Jane Doe", lang: "es-ES" });
-
-const users3 = database.select("users");
-
-console.log("----------------------------------");
-
-console.log(users3);
-
-database.renameTable("users", "customers");
-
-const users4 = database.select("customers");
-
-console.log("----------------------------------");
-
-console.log(users4);
-
-database.renameTable("customers", "users");
-
-database.renameColumn("users", "name", "fullName");
-
-const users5 = database.select("users");
-
-console.log("----------------------------------");
-
-console.log(users5);
-
-database.renameColumn("users", "fullName", "name");
-
-database.dropAll();
-
-const users6 = database.select("users");
-
-console.log("----------------------------------");
-
-console.log(users6);
-
-database.deleteTableIfExists("test_migration");
-database.deleteTableIfExists("migrations");
-
-database.enableMigrations();
-
-database.createMigration(
-	{
-		id: "cdaa5095-0c11-4878-8d89-c9be41215e57",
-		description: "Description",
-		timestamp: Date.now(),
-	},
-	() => {
-		database.createTableIfNotExists("test_migration", ["name"]);
-		database.insert("test_migration", { name: "John" });
-	},
-);
-
-const migrations = database.select("migrations");
-
-console.log("----------------------------------");
-
-console.log(migrations);
-
-const testMigration = database.select("test_migration");
-
-console.log("----------------------------------");
-
-console.log(testMigration);
-
-const tableNames = database.getTableNames();
-
-console.log("----------------------------------");
-
-console.log(tableNames);
-
-const columnNames = database.getColumnNames("users");
-
-console.log("----------------------------------");
-
-console.log(columnNames);
-
-const recordCount = database.getRecordCount("users");
-
-console.log("----------------------------------");
-
-console.log(recordCount);
 ```
+src/
+  database/
+    schemas/
+      users.ts
+      posts.ts
+      index.ts
+    migrations/
+      create_tables.ts
+    index.ts
+  app.ts
+```
+
+## Schema Definitions
+
+### `schemas/users.ts`
+
+```ts
+import { table, d } from "@hedystia/db";
+
+export const users = table("users", {
+  id: d.integer().primaryKey().autoIncrement(),
+  name: d.varchar(255).notNull(),
+  email: d.varchar(255).unique().notNull(),
+  age: d.integer().default(0),
+  active: d.boolean().default(true),
+  bio: d.text().nullable(),
+  createdAt: d.datetime(),
+});
+```
+
+### `schemas/posts.ts`
+
+```ts
+import { table, d } from "@hedystia/db";
+import { users } from "./users";
+
+export const posts = table("posts", {
+  id: d.integer().primaryKey().autoIncrement(),
+  userId: d.integer().notNull().references(() => users.id, {
+    onDelete: "CASCADE",
+  }),
+  title: d.varchar(255).notNull(),
+  content: d.text(),
+  published: d.boolean().default(false),
+  createdAt: d.datetime(),
+});
+```
+
+### `schemas/index.ts`
+
+```ts
+export * from "./users";
+export * from "./posts";
+```
+
+## Database Configuration
+
+### `index.ts`
+
+```ts
+import { database } from "@hedystia/db";
+import { users, posts } from "./schemas";
+
+export const db = database({
+  schemas: [users, posts],
+  database: "sqlite",
+  connection: { filename: "./data.db" },
+  syncSchemas: true,
+  cache: {
+    enabled: true,
+    ttl: 60000,
+    maxTtl: 300000,
+  },
+});
+```
+
+## Usage
+
+### `app.ts`
+
+```ts
+import { db } from "./database";
+
+async function main() {
+  await db.initialize();
+
+  // Insert users
+  const alice = await db.users.insert({
+    name: "Alice",
+    email: "alice@example.com",
+    age: 25,
+  });
+
+  const bob = await db.users.insert({
+    name: "Bob",
+    email: "bob@example.com",
+    age: 30,
+  });
+
+  // Insert posts
+  await db.posts.insert({
+    userId: alice.id,
+    title: "Hello World",
+    content: "My first post!",
+    published: true,
+  });
+
+  await db.posts.insert({
+    userId: alice.id,
+    title: "Draft Post",
+    content: "Work in progress",
+  });
+
+  await db.posts.insert({
+    userId: bob.id,
+    title: "Bob's Post",
+    content: "Hello from Bob!",
+    published: true,
+  });
+
+  // Find all users
+  const allUsers = await db.users.find();
+  console.log("All users:", allUsers);
+
+  // Find with conditions
+  const adults = await db.users.find({
+    where: { age: { gte: 18 } },
+    orderBy: { name: "asc" },
+  });
+  console.log("Adults:", adults);
+
+  // Find first
+  const user = await db.users.findFirst({
+    where: { email: "alice@example.com" },
+  });
+  console.log("Found:", user);
+
+  // Count
+  const total = await db.users.count();
+  console.log("Total users:", total);
+
+  // Check existence
+  const hasAlice = await db.users.exists({
+    where: { email: "alice@example.com" },
+  });
+  console.log("Alice exists:", hasAlice);
+
+  // Update
+  await db.users.update({
+    where: { name: "Alice" },
+    data: { age: 26 },
+  });
+
+  // Upsert
+  await db.users.upsert({
+    where: { email: "charlie@example.com" },
+    create: { name: "Charlie", email: "charlie@example.com", age: 22 },
+    update: { age: 23 },
+  });
+
+  // Load with relations
+  const usersWithPosts = await db.users.find({
+    where: { name: "Alice" },
+    with: { posts: true },
+  });
+  console.log("Alice's posts:", usersWithPosts[0].posts);
+
+  // Complex queries
+  const filtered = await db.users.find({
+    where: {
+      OR: [
+        { name: { like: "%ali%" } },
+        { age: { between: [28, 35] } },
+      ],
+    },
+    select: ["id", "name", "age"],
+    orderBy: { age: "desc" },
+    take: 5,
+  });
+  console.log("Filtered:", filtered);
+
+  // Delete
+  const deleted = await db.users.delete({
+    where: { name: "Charlie" },
+  });
+  console.log("Deleted:", deleted, "rows");
+
+  // Raw SQL
+  const raw = await db.raw("SELECT COUNT(*) as total FROM users");
+  console.log("Raw result:", raw);
+
+  await db.close();
+}
+
+main();
+```
+
+## Using with MySQL
+
+```ts
+const db = database({
+  schemas: [users, posts],
+  database: "mysql",
+  connection: {
+    host: "localhost",
+    port: 3306,
+    user: "root",
+    password: "password",
+    database: "myapp",
+  },
+  syncSchemas: true,
+  cache: true,
+});
+```
+
+## Using with File Storage
+
+```ts
+const db = database({
+  schemas: [users, posts],
+  database: "file",
+  connection: { directory: "./data" },
+  syncSchemas: true,
+  cache: true,
+});
+```
+
+No driver installation needed. Data is stored as JSON files in the specified directory.
