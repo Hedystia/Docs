@@ -259,10 +259,12 @@ export default defineConfig({
       ],
       "/db/": [
         {
-          text: "DataBase",
+          text: "Database",
           items: [
-            { text: "Start", link: "/db/start" },
-            { text: "Example", link: "/db/example" },
+            { text: "Getting Started", link: "/db/start" },
+            { text: "Queries", link: "/db/queries" },
+            { text: "Migrations", link: "/db/migrations" },
+            { text: "Full Example", link: "/db/example" },
           ],
         },
       ],
