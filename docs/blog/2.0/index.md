@@ -1,8 +1,8 @@
-# Hedystia 1.11 - Database ORM
+# Hedystia 2.0 - Database ORM
 
 **Type-Safe ORM with Multi-Database Support, Smart Caching, and Migration System**
 
-Hedystia 1.11 introduces `@hedystia/db`, a brand-new database ORM package that brings the same developer experience philosophy to data persistence. Define your schema once in TypeScript and query any database with full type safety.
+Hedystia 2.0 introduces `@hedystia/db`, a brand-new database ORM package that brings the same developer experience philosophy to data persistence. Define your schema once in TypeScript and query any database with full type safety.
 
 ## 🗄️ @hedystia/db — A New ORM
 
@@ -270,7 +270,7 @@ Typed error classes for precise error handling:
 
 ## 📋 Summary
 
-Hedystia 1.11 introduces a complete database solution:
+Hedystia 2.0 introduces a complete database solution:
 
 1. **Type-Safe Schemas** — Define once, use everywhere with full TypeScript inference
 2. **Multi-Database** — MySQL, SQLite, and File storage from a single schema
