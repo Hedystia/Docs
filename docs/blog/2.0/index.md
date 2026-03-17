@@ -18,28 +18,28 @@ bun add @hedystia/db
 
 ## 📐 Schema Definition
 
-Define your tables with the `table` function and `d` column helpers:
+Define your tables with the `table` function and column helpers:
 
 ```typescript
-import { table, d } from "@hedystia/db";
+import { table, integer, varchar, text, boolean, datetime } from "@hedystia/db";
 
 export const users = table("users", {
-  id: d.integer().primaryKey().autoIncrement(),
-  name: d.varchar(255).notNull(),
-  email: d.varchar(255).unique(),
-  age: d.integer().default(0),
-  active: d.boolean().default(true),
-  bio: d.text().nullable(),
-  createdAt: d.datetime(),
+  id: integer().primaryKey().autoIncrement(),
+  name: varchar(255).notNull(),
+  email: varchar(255).unique(),
+  age: integer().default(0),
+  active: boolean().default(true),
+  bio: text().null(),
+  createdAt: datetime(),
 });
 
 export const posts = table("posts", {
-  id: d.integer().primaryKey().autoIncrement(),
-  userId: d.integer().references(() => users.id, {
+  id: integer().primaryKey().autoIncrement(),
+  userId: integer().references(() => users.id, {
     onDelete: "CASCADE",
   }),
-  title: d.varchar(255).notNull(),
-  content: d.text(),
+  title: varchar(255).notNull(),
+  content: text(),
 });
 ```
 
@@ -160,12 +160,12 @@ Define foreign keys with `.references()` and load related data with `with`:
 
 ```typescript
 const posts = table("posts", {
-  id: d.integer().primaryKey().autoIncrement(),
-  userId: d.integer().references(() => users.id, {
+  id: integer().primaryKey().autoIncrement(),
+  userId: integer().references(() => users.id, {
     onDelete: "CASCADE",
     relationName: "author",
   }),
-  title: d.varchar(255).notNull(),
+  title: varchar(255).notNull(),
 });
 
 // Load users with their posts

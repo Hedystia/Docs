@@ -145,15 +145,16 @@ h.object({
 })
 ```
 
-### `.null()`
+### `.null()` / `.nullable()`
 
-Extends a schema to also accept `null`.
+Extends a schema to also accept `null`. Both methods are interchangeable.
 
 ```ts twoslash
 // @noErrors
 import { h } from 'hedystia'
-h.string().null()    // string | null
-h.number().null()    // number | null
+h.string().null()       // string | null
+h.string().nullable()   // string | null (same as .null())
+h.number().null()       // number | null
 h.string().enum(['red', 'green', 'blue'] as const)
 h.number().enum([1, 2, 3] as const)
 ```

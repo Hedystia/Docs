@@ -26,34 +26,34 @@ src/
 ### `schemas/users.ts`
 
 ```ts
-import { table, d } from "@hedystia/db";
+import { table, integer, varchar, boolean, text, datetime } from "@hedystia/db";
 
 export const users = table("users", {
-  id: d.integer().primaryKey().autoIncrement(),
-  name: d.varchar(255).notNull(),
-  email: d.varchar(255).unique().notNull(),
-  age: d.integer().default(0),
-  active: d.boolean().default(true),
-  bio: d.text().nullable(),
-  createdAt: d.datetime(),
+  id: integer().primaryKey().autoIncrement(),
+  name: varchar(255).notNull(),
+  email: varchar(255).unique().notNull(),
+  age: integer().default(0),
+  active: boolean().default(true),
+  bio: text().nullable(),
+  createdAt: datetime(),
 });
 ```
 
 ### `schemas/posts.ts`
 
 ```ts
-import { table, d } from "@hedystia/db";
+import { table, integer, varchar, boolean, text, datetime } from "@hedystia/db";
 import { users } from "./users";
 
 export const posts = table("posts", {
-  id: d.integer().primaryKey().autoIncrement(),
-  userId: d.integer().notNull().references(() => users.id, {
+  id: integer().primaryKey().autoIncrement(),
+  userId: integer().notNull().references(() => users.id, {
     onDelete: "CASCADE",
   }),
-  title: d.varchar(255).notNull(),
-  content: d.text(),
-  published: d.boolean().default(false),
-  createdAt: d.datetime(),
+  title: varchar(255).notNull(),
+  content: text(),
+  published: boolean().default(false),
+  createdAt: datetime(),
 });
 ```
 

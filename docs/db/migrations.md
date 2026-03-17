@@ -132,11 +132,11 @@ export default migration("create_users", {
 ### Generated Schema Template
 
 ```ts
-import { table, d } from "@hedystia/db";
+import { table, integer, datetime } from "@hedystia/db";
 
 export const users = table("users", {
-  id: d.integer().primaryKey().autoIncrement(),
-  createdAt: d.datetime().default(new Date()),
-  updatedAt: d.datetime().default(new Date()),
+  id: integer().primaryKey().autoIncrement(),
+  createdAt: datetime().default(new Date()),
+  updatedAt: datetime().default(new Date()),
 });
 ```

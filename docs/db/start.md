@@ -48,49 +48,85 @@ bun add mysql
 
 ## Defining Schemas
 
-Use the `table` function and `d` column helpers to define your tables:
+Use the `table` function and column helpers to define your tables:
 
 ```ts
-import { table, d } from "@hedystia/db";
+import { table, integer, varchar, boolean, datetime } from "@hedystia/db";
 
 export const users = table("users", {
-  id: d.integer().primaryKey().autoIncrement(),
-  name: d.varchar(255).notNull(),
-  email: d.varchar(255).unique(),
-  age: d.integer().default(0),
-  active: d.boolean().default(true),
-  createdAt: d.datetime(),
+  id: integer().primaryKey().autoIncrement(),
+  name: varchar(255).notNull(),
+  email: varchar(255).unique(),
+  age: integer().default(0),
+  active: boolean().default(true),
+  createdAt: datetime(),
 });
 ```
+
+> **Note:** The `d.xxx()` prefix style (e.g., `import { d } from "@hedystia/db"; d.integer()`) is still supported for backward compatibility.
 
 ### Column Types
 
 | Function | SQL Type | TypeScript Type |
 |---|---|---|
-| `d.integer()` | INT / INTEGER | `number` |
-| `d.bigint()` | BIGINT / INTEGER | `number` |
-| `d.varchar(n)` | VARCHAR(n) / TEXT | `string` |
-| `d.char(n)` | CHAR(n) / TEXT | `string` |
-| `d.text()` | TEXT | `string` |
-| `d.boolean()` | TINYINT(1) / INTEGER | `boolean` |
-| `d.json()` | JSON / TEXT | `unknown` |
-| `d.datetime()` | DATETIME / TEXT | `Date` |
-| `d.timestamp()` | TIMESTAMP / TEXT | `Date` |
-| `d.decimal(p, s)` | DECIMAL(p,s) / REAL | `number` |
-| `d.float()` | FLOAT / REAL | `number` |
-| `d.blob()` | BLOB | `Buffer` |
+| `integer()` | INT / INTEGER | `number` |
+| `bigint()` | BIGINT / INTEGER | `number` |
+| `varchar(n)` | VARCHAR(n) / TEXT | `string` |
+| `char(n)` | CHAR(n) / TEXT | `string` |
+| `text()` | TEXT | `string` |
+| `boolean()` | TINYINT(1) / INTEGER | `boolean` |
+| `json()` | JSON / TEXT | `unknown` |
+| `datetime()` | DATETIME / TEXT | `Date` |
+| `timestamp()` | TIMESTAMP / TEXT | `Date` |
+| `decimal(p, s)` | DECIMAL(p,s) / REAL | `number` |
+| `float()` | FLOAT / REAL | `number` |
+| `blob()` | BLOB | `Buffer` |
 
 ### Column Modifiers
 
 ```ts
-d.integer()
+integer()
   .primaryKey()      // PRIMARY KEY
   .autoIncrement()   // AUTO_INCREMENT / AUTOINCREMENT
   .notNull()         // NOT NULL
   .nullable()        // Allow NULL
+  .null()            // Allow NULL (alias for .nullable())
   .unique()          // UNIQUE constraint
   .default(value)    // DEFAULT value
   .references(ref)   // Foreign key reference
+  .name(alias)       // Column name alias in the database
+  .type<T>()         // Custom type literal for TypeScript inference
+```
+
+### Column Name Alias
+
+Use `.name()` to map a code-friendly property name to a different column name in the database. You can also use the standalone `name()` function to start a column definition from a database column name:
+
+```ts
+import { table, varchar, integer, name } from "@hedystia/db";
+
+export const guilds = table("guilds", {
+  id: integer().primaryKey().autoIncrement(),
+  // Using .name() - code uses "guildId", database stores as "guild_id"
+  guildId: varchar(255).name("guild_id").notNull(),
+  // Using name() starter function
+  guildName: name("guild_name").varchar(255).notNull(),
+});
+```
+
+### Custom Type Literals
+
+Use `.type<T>()` to narrow the TypeScript type for a column, restricting autocomplete and type checking to specific values:
+
+```ts
+import { table, integer, varchar } from "@hedystia/db";
+
+export const settings = table("settings", {
+  id: integer().primaryKey().autoIncrement(),
+  // Limits autocomplete to specific string values
+  locale: varchar(25).type<"en_US" | "es_ES" | "fr_FR">().notNull(),
+  theme: varchar(25).type<"light" | "dark">().default("light" as any),
+});
 ```
 
 ## Database Configuration
@@ -158,19 +194,21 @@ The cache automatically:
 Define foreign keys with `.references()`:
 
 ```ts
+import { table, integer, varchar } from "@hedystia/db";
+
 export const users = table("users", {
-  id: d.integer().primaryKey().autoIncrement(),
-  name: d.varchar(255).notNull(),
+  id: integer().primaryKey().autoIncrement(),
+  name: varchar(255).notNull(),
 });
 
 export const posts = table("posts", {
-  id: d.integer().primaryKey().autoIncrement(),
-  userId: d.integer().references(() => users.id, {
+  id: integer().primaryKey().autoIncrement(),
+  userId: integer().references(() => users.id, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
     relationName: "author",
   }),
-  title: d.varchar(255).notNull(),
+  title: varchar(255).notNull(),
 });
 ```
 

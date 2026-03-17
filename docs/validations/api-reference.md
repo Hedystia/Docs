@@ -59,6 +59,7 @@ Methods available on most schemas to change their behavior.
 | :--- | :--- |
 | `.optional()` | Allows the value to be `undefined`. Maps to `T | undefined`. |
 | `.null()` | Allows the value to be `null`. Maps to `T | null`. |
+| `.nullable()` | Alias for `.null()`. Allows the value to be `null`. Maps to `T | null`. |
 | `.array()` | Transforms the schema into an array of that type: `T[]`. |
 | `.coerce()` | Enables type coercion for primitive types (string, number, boolean). |
 
