@@ -26,7 +26,7 @@ src/
 ### `schemas/users.ts`
 
 ```ts
-import { table, integer, varchar, boolean, text, datetime } from "@hedystia/db";
+import { table, integer, varchar, boolean, text, datetime, array } from "@hedystia/db";
 
 export const users = table("users", {
   id: integer().primaryKey().autoIncrement(),
@@ -35,6 +35,7 @@ export const users = table("users", {
   age: integer().default(0),
   active: boolean().default(true),
   bio: text().nullable(),
+  tags: array(),
   createdAt: datetime(),
 });
 ```
@@ -47,13 +48,15 @@ import { users } from "./users";
 
 export const posts = table("posts", {
   id: integer().primaryKey().autoIncrement(),
-  userId: integer().notNull().references(() => users.id, {
+  userId: integer().notNull().references(users.id, {
     onDelete: "CASCADE",
   }),
   title: varchar(255).notNull(),
   content: text(),
   published: boolean().default(false),
   createdAt: datetime(),
+}, {
+  cache: { enabled: true, ttl: 30000 },
 });
 ```
 
@@ -70,10 +73,12 @@ export * from "./posts";
 
 ```ts
 import { database } from "@hedystia/db";
-import { users, posts } from "./schemas";
+import * as schemas from "./schemas";
+// or: import { users, posts } from "./schemas";
 
 export const db = database({
-  schemas: [users, posts],
+  schemas,
+  // or: schemas: [users, posts],
   database: "sqlite",
   connection: { filename: "./data.db" },
   syncSchemas: true,

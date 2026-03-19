@@ -57,11 +57,14 @@ The migration context provides:
 Pass migrations to the database config:
 
 ```ts
+import * as schemas from "./schemas";
+// or: import { users } from "./schemas";
 import { createUsers } from "./migrations/create_users";
 import { addAgeColumn } from "./migrations/add_age";
 
 const db = database({
-  schemas: [users],
+  schemas,
+  // or: schemas: [users],
   database: "sqlite",
   connection: { filename: "./data.db" },
   runMigrations: true,

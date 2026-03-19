@@ -51,6 +51,16 @@ const user = await db.users.insert({
 });
 ```
 
+### Inserting array and JSON data
+
+```ts
+const user = await db.users.insert({
+  name: "Alice",
+  tags: ["admin", "editor"],
+  metadata: { role: "admin", level: 5 },
+});
+```
+
 ## insertMany
 
 Insert multiple rows at once.

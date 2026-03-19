@@ -76,6 +76,7 @@ export const users = table("users", {
 | `text()` | TEXT | `string` |
 | `boolean()` | TINYINT(1) / INTEGER | `boolean` |
 | `json()` | JSON / TEXT | `unknown` |
+| `array()` | JSON / TEXT | `unknown[]` |
 | `datetime()` | DATETIME / TEXT | `Date` |
 | `timestamp()` | TIMESTAMP / TEXT | `Date` |
 | `decimal(p, s)` | DECIMAL(p,s) / REAL | `number` |
@@ -150,6 +151,24 @@ const db = database({
 await db.initialize();
 ```
 
+### Module Namespace Schemas
+
+You can also pass a module namespace instead of an array:
+
+```ts
+import { database } from "@hedystia/db";
+import * as schemas from "./schemas";
+
+const db = database({
+  schemas,
+  database: "sqlite",
+  connection: { filename: "./data.db" },
+  syncSchemas: true,
+});
+```
+
+Both forms are equivalent — the ORM automatically extracts table definitions from the namespace object.
+
 ### Connection Options
 
 **SQLite:**
@@ -189,6 +208,28 @@ The cache automatically:
 - Invalidates on insert, update, and delete
 - Extends TTL for frequently accessed data using adaptive scaling
 
+### Per-Table Cache
+
+You can enable caching for specific tables, useful for frequently accessed data like user sessions:
+
+```ts
+import { table, integer, varchar } from "@hedystia/db";
+
+export const sessions = table("sessions", {
+  id: integer().primaryKey().autoIncrement(),
+  userId: integer().notNull(),
+  token: varchar(255).notNull(),
+}, {
+  cache: {
+    enabled: true,
+    ttl: 30000,     // 30 seconds
+    maxTtl: 120000, // 2 minutes
+  },
+});
+```
+
+Per-table cache works independently of the global `cache` setting. A table with `cache.enabled: true` will be cached even if global caching is disabled.
+
 ## Relations
 
 Define foreign keys with `.references()`:
@@ -203,11 +244,14 @@ export const users = table("users", {
 
 export const posts = table("posts", {
   id: integer().primaryKey().autoIncrement(),
+  // Arrow function form
   userId: integer().references(() => users.id, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
     relationName: "author",
   }),
+  // Direct reference form
+  // userId: integer().references(users.id, { onDelete: "CASCADE" }),
   title: varchar(255).notNull(),
 });
 ```
