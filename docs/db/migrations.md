@@ -54,13 +54,13 @@ The migration context provides:
 
 ### Running Migrations
 
-Pass migrations to the database config:
+Pass migrations to the database config — either as an array or a module namespace import:
 
 ```ts
 import * as schemas from "./schemas";
 // or: import { users } from "./schemas";
-import { createUsers } from "./migrations/create_users";
-import { addAgeColumn } from "./migrations/add_age";
+import * as migrations from "./migrations";
+// or: import { createUsers, addAgeColumn } from "./migrations";
 
 const db = database({
   schemas,
@@ -68,9 +68,12 @@ const db = database({
   database: "sqlite",
   connection: { filename: "./data.db" },
   runMigrations: true,
-  migrations: [createUsers, addAgeColumn],
+  migrations,
+  // or: migrations: [createUsers, addAgeColumn],
 });
 ```
+
+Both forms are equivalent — the namespace import (`import * as migrations`) is automatically normalized by extracting all valid `MigrationDefinition` exports.
 
 Migrations run in order and are tracked in the `__hedystia_migrations` table. Each migration only runs once.
 
