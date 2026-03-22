@@ -77,8 +77,8 @@ import * as schemas from "./schemas";
 // or: import { users, posts } from "./schemas";
 
 export const db = database({
-  schemas,
-  // or: schemas: [users, posts],
+  schemas, // Uses the exported namespace containing all table definitions as an object
+  // or: schemas: { users, posts },
   database: "sqlite",
   connection: { filename: "./data.db" },
   syncSchemas: true,
@@ -215,7 +215,7 @@ main();
 
 ```ts
 const db = database({
-  schemas: [users, posts],
+  schemas: { users, posts },
   database: "mysql",
   connection: {
     host: "localhost",
@@ -233,7 +233,7 @@ const db = database({
 
 ```ts
 const db = database({
-  schemas: [users, posts],
+  schemas: { users, posts },
   database: "file",
   connection: { directory: "./data" },
   syncSchemas: true,

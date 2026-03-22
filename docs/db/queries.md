@@ -235,3 +235,18 @@ await db.transaction(async () => {
   await db.raw("INSERT INTO posts (userId, title) VALUES (?, ?)", [1, "Hello"]);
 });
 ```
+
+## Caching
+
+`@hedystia/db` comes with a powerful caching system that can remember the results of `find` and `count` operations, significantly reducing database load.
+
+To enable caching for a table, pass the `cache` configuration in the database connection or specifically on a table definition. Data is invalidated automatically on `insert`, `update`, and `delete`.
+
+```ts
+const db = database({
+  schemas: { users },
+  // Enable global caching
+  cache: { enabled: true, ttl: 60000 },
+  // ...
+});
+```

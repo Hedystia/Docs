@@ -262,10 +262,33 @@ export default defineConfig({
           text: "Database",
           items: [
             { text: "Getting Started", link: "/db/start" },
+            { text: "Schema Definition", link: "/db/schema" },
+            { text: "Relations", link: "/db/relations" },
             { text: "Queries", link: "/db/queries" },
-            { text: "Migrations", link: "/db/migrations" },
-            { text: "Full Example", link: "/db/example" },
           ],
+        },
+        {
+          text: "Drivers",
+          collapsed: false,
+          items: [
+            { text: "SQLite", link: "/db/drivers/sqlite" },
+            { text: "MySQL", link: "/db/drivers/mysql" },
+            { text: "File (Local)", link: "/db/drivers/file" },
+            { text: "S3 (Cloud)", link: "/db/drivers/s3" },
+          ],
+        },
+        {
+          text: "Tools",
+          collapsed: false,
+          items: [
+            { text: "Migrations", link: "/db/migrations" },
+            { text: "CLI", link: "/db/cli" },
+          ],
+        },
+        {
+          text: "Guides",
+          collapsed: false,
+          items: [{ text: "Full Example", link: "/db/example" }],
         },
       ],
       "/validations/": [
