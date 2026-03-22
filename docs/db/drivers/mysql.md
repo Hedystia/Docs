@@ -9,10 +9,12 @@ description: Configure and use the MySQL driver for @hedystia/db.
 
 ## Installation
 
-To connect to a MySQL database, we recommend installing `mysql2`.
+To connect to a MySQL or MariaDB database, you can install either the modern `mysql2` package or the legacy `mysql` package.
 
 ```bash
-bun add mysql2
+bun add mysql2  # Recommended
+# or
+bun add mysql
 ```
 
 ## Configuration

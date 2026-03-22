@@ -9,13 +9,18 @@ description: Configure and use the SQLite driver for @hedystia/db.
 
 ## Installation
 
-Depending on your environment, you can install one of the supported SQLite providers:
+To use the SQLite driver, you must install at least one of the supported provider packages:
 
 ```bash
-bun add better-sqlite3
+bun add better-sqlite3  # Recommended
 # or
 bun add sqlite3
+# or
+bun add sql.js
 ```
+
+> [!TIP]
+> If you are running on **Bun**, you don't need to install anything! `@hedystia/db` will automatically fall back to the built-in `bun:sqlite` if no other provider is found.
 
 ## Configuration
 

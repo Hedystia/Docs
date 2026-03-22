@@ -12,7 +12,9 @@ description: Configure and use the experimental File driver for @hedystia/db.
 > [!WARNING]
 > The File driver is **experimental** and is not optimized for large datasets, high concurrency, or distributed deployments. It reads and writes JSON objects sequentially to the file system. Use with caution.
 
-## Configuration
+## Installation
+
+The File driver is built-in to `@hedystia/db`. **No extra installation is needed!**
 
 To use the File driver, set the database type to `"file"` and provide a directory path where the database will create a file for each respective table schema.
 
