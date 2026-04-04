@@ -17,7 +17,7 @@ bun add @hedystia/view
 Unlike traditional UI frameworks, `@hedystia/view` creates real DOM nodes directly. There's no virtual DOM diffing, no reconciliation overhead — just precise, efficient updates exactly where they're needed.
 
 ```tsx
-import { sig, val } from "@hedystia/view";
+import { sig, val, set } from "@hedystia/view";
 
 const count = sig(0);
 
@@ -27,7 +27,7 @@ function Counter() {
   return (
     <div>
       <p>Count: {() => val(count)}</p>
-      <button onClick={() => count.set(val(count) + 1)}>
+      <button onClick={() => set(count, val(count) + 1)}>
         Increment
       </button>
     </div>
@@ -127,6 +127,9 @@ once(
 View uses JSX with a custom runtime (`jsxImportSource: "@hedystia/view"`). The same static vs reactive pattern applies everywhere:
 
 ```tsx
+import { sig, val, set } from "@hedystia/view";
+import { Show } from "@hedystia/view";
+
 function App() {
   const visible = sig(true);
   const theme = sig("dark");
@@ -135,7 +138,7 @@ function App() {
     <div className={() => `theme-${val(theme)}`}>
       {/* Static: evaluated once */}
       <h1>Welcome</h1>
-      
+
       {/* Reactive: updates when theme changes */}
       <p class={() => val(theme) === "dark" ? "text-white" : "text-black"}>
         Current theme: {() => val(theme)}
@@ -146,7 +149,7 @@ function App() {
         <p>This is visible!</p>
       </Show>
 
-      <button onClick={() => visible.set(!val(visible))}>
+      <button onClick={() => set(visible, !val(visible))}>
         Toggle
       </button>
     </div>
@@ -233,7 +236,7 @@ Defaults to `document.body`, or specify a custom mount point.
 Manage complex nested state with an intuitive proxy-based API:
 
 ```tsx
-import { store, patch, reset, snap } from "@hedystia/view";
+import { store, val, set, patch, reset, snap } from "@hedystia/view";
 
 const user = store({
   name: "Alice",
@@ -252,14 +255,12 @@ console.log(val(user.name));
 console.log(val(user.address.city));
 
 // Set nested values
-user.name.set("Bob");
-user.address.city.set("New York");
+set(user.name, "Bob");
+set(user.address.city, "New York");
 
 // Deep partial update
-patch(user, {
-  address: { city: "Los Angeles" },
-  preferences: { theme: "light" },
-});
+patch(user.address, { city: "Los Angeles" });
+patch(user.preferences, { theme: "light" });
 
 // Snapshot to plain object
 const snapshot = snap(user);
@@ -301,13 +302,13 @@ Built-in utilities for data fetching with loading states, error handling, and au
 ### Load — Reactive Queries
 
 ```tsx
-import { load } from "@hedystia/view";
+import { sig, val, set, load } from "@hedystia/view";
 
 const userId = sig(1);
 
 function UserProfile() {
   const user = load(
-    () => `user-${val(userId)}`,
+    () => val(userId),
     async () => {
       const res = await fetch(`/api/users/${val(userId)}`);
       return res.json();
@@ -327,10 +328,10 @@ function UserProfile() {
 
 The `load` function provides: `data`, `loading`, `error`, `state` (`pending`/`ready`/`refreshing`/`errored`), and `ready`. It auto-aborts previous fetches when the key changes.
 
-### Action — Reactive Mutmutations
+### Action — Reactive Mutations
 
 ```tsx
-import { action } from "@hedystia/view";
+import { sig, val, set, action } from "@hedystia/view";
 
 function CreatePost() {
   const createPost = action(async (postData: PostData) => {
