@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vitepress'
-import { 
-  Box, 
-  CreditCard, 
-  Database, 
-  Zap, 
+import {
+  Box,
+  CreditCard,
+  Database,
+  Zap,
   BarChart3,
   ChevronDown,
-  ShieldCheck
+  ShieldCheck,
+  Eye
 } from 'lucide-vue-next'
 
 const route = useRoute()
@@ -18,7 +19,7 @@ const selectRef = ref<HTMLElement | null>(null)
 
 const packages = [
   { name: 'Framework', id: 'framework', icon: Box, path: '/framework/introduction' },
-  { name: 'View', id: 'view', icon: CreditCard, path: '/view/start' },
+  { name: 'View', id: 'view', icon: Eye, path: '/view/start' },
   { name: 'DataBase', id: 'db', icon: Database, path: '/db/start' },
   { name: 'Validations', id: 'validations', icon: ShieldCheck, path: '/validations/start' },
   { name: 'Billing', id: 'billing', icon: CreditCard, path: '/billing/start' },
@@ -27,11 +28,11 @@ const packages = [
 ]
 
 const currentPackage = computed(() => {
-  if (route.path.includes('/validations')) return packages[1]
-  if (route.path.includes('/view')) return packages[2]
-  if (route.path.includes('/billing')) return packages[3]
-  if (route.path.includes('/cache')) return packages[4]
-  if (route.path.includes('/db')) return packages[5]
+  if (route.path.includes('/view')) return packages[1]
+  if (route.path.includes('/db')) return packages[2]
+  if (route.path.includes('/validations')) return packages[3]
+  if (route.path.includes('/billing')) return packages[4]
+  if (route.path.includes('/cache')) return packages[5]
   if (route.path.includes('/stats')) return packages[6]
   return packages[0]
 })
