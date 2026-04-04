@@ -1,6 +1,6 @@
 ---
 title: JSX Setup & Basics
-description: How JSX works in @hedystia/view — compilation, events, refs, and more.
+description: JSX basics in Hedystia View.
 ---
 
 # JSX Setup & Basics
@@ -8,6 +8,8 @@ description: How JSX works in @hedystia/view — compilation, events, refs, and 
 `@hedystia/view` uses a custom JSX runtime that creates real DOM nodes directly — no Virtual DOM. Components are plain functions that run once.
 
 ## TypeScript Configuration
+
+<div v-pre>
 
 ```json
 {
@@ -18,9 +20,13 @@ description: How JSX works in @hedystia/view — compilation, events, refs, and 
 }
 ```
 
+</div>
+
 ## How JSX Compiles
 
 JSX is transformed at build time:
+
+<div v-pre>
 
 ```tsx
 // This JSX:
@@ -30,7 +36,11 @@ JSX is transformed at build time:
 jsx("div", { class: "card", children: "Hello" });
 ```
 
+</div>
+
 Function components are called directly — they return DOM nodes:
+
+<div v-pre>
 
 ```tsx
 // This JSX:
@@ -43,9 +53,13 @@ jsx(MyComponent, { title: "Hi" });
 MyComponent({ title: "Hi" }); // returns an HTMLElement
 ```
 
+</div>
+
 ## Fragments
 
 Use `<>...</>` to group elements without a wrapper:
+
+<div v-pre>
 
 ```tsx
 function List() {
@@ -58,9 +72,13 @@ function List() {
 }
 ```
 
+</div>
+
 ## Event Handlers
 
 Event handler props start with `on` followed by the event name. The event name after `on` is lowercased:
+
+<div v-pre>
 
 ```tsx
 <button onClick={(e) => console.log("clicked", e)}>Click</button>
@@ -69,9 +87,13 @@ Event handler props start with `on` followed by the event name. The event name a
 <form onSubmit={(e) => e.preventDefault()} />
 ```
 
+</div>
+
 ## `ref` Prop
 
 Use `ref` to get a reference to the underlying DOM element. The callback runs after the element is inserted:
+
+<div v-pre>
 
 ```tsx
 import { mount } from "@hedystia/view";
@@ -89,32 +111,46 @@ function AutoFocus() {
 mount(AutoFocus, document.getElementById("root")!);
 ```
 
+</div>
+
 ## Boolean Attributes
 
 Boolean `true` sets the attribute (empty string); `false` omits it:
+
+<div v-pre>
 
 ```tsx
 <button disabled={true}>Can't click</button>
 <input readonly={false} />
 ```
 
+</div>
+
 ## `class` and `className`
 
 Both `class` and `className` work and set the element's `className`:
+
+<div v-pre>
 
 ```tsx
 <div class="card">Using class</div>
 <div className="card">Using className</div>
 ```
 
+</div>
+
 ## Style
 
 Style accepts a string, an object, or a function (for reactive styles):
+
+<div v-pre>
 
 ```tsx
 <div style="color: red;">String style</div>
 <div style={{ color: "red", fontSize: "16px" }}>Object style</div>
 <div style={() => ({ color: val(active) ? "red" : "blue" })}>Reactive style</div>
 ```
+
+</div>
 
 See [Reactive JSX Patterns](/view/jsx/reactive) for more on reactive props and children.
