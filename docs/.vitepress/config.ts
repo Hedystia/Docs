@@ -310,6 +310,93 @@ export default defineConfig({
           ],
         },
       ],
+      "/view/": [
+        {
+          text: "View",
+          items: [
+            { text: "Getting Started", link: "/view/start" },
+            {
+              text: "Signals",
+              collapsed: true,
+              items: [
+                { text: "Signals", link: "/view/signals/signals" },
+                { text: "Batch & Untrack", link: "/view/signals/batch" },
+                { text: "Memo", link: "/view/signals/memo" },
+              ],
+            },
+            {
+              text: "Effects",
+              collapsed: true,
+              items: [
+                { text: "On", link: "/view/effects/on" },
+                { text: "Once", link: "/view/effects/once" },
+              ],
+            },
+            {
+              text: "JSX",
+              collapsed: true,
+              items: [
+                { text: "JSX", link: "/view/jsx/jsx" },
+                { text: "Reactive Patterns", link: "/view/jsx/reactive" },
+              ],
+            },
+            {
+              text: "Render",
+              collapsed: true,
+              items: [{ text: "Render", link: "/view/render/render" }],
+            },
+            {
+              text: "Lifecycle",
+              collapsed: true,
+              items: [{ text: "Lifecycle", link: "/view/lifecycle/lifecycle" }],
+            },
+            {
+              text: "Flow",
+              collapsed: true,
+              items: [
+                { text: "Show", link: "/view/flow/show" },
+                { text: "For", link: "/view/flow/for" },
+                { text: "Index", link: "/view/flow/index-component" },
+                { text: "Switch & Match", link: "/view/flow/switch" },
+                { text: "Portal", link: "/view/flow/portal" },
+              ],
+            },
+            {
+              text: "Context",
+              collapsed: true,
+              items: [{ text: "Context", link: "/view/context/context" }],
+            },
+            {
+              text: "Store",
+              collapsed: true,
+              items: [{ text: "Store", link: "/view/store/store" }],
+            },
+            {
+              text: "Fetch",
+              collapsed: true,
+              items: [
+                { text: "Load", link: "/view/fetch/load" },
+                { text: "Action", link: "/view/fetch/action" },
+              ],
+            },
+            {
+              text: "Scheduler",
+              collapsed: true,
+              items: [{ text: "Scheduler", link: "/view/scheduler/scheduler" }],
+            },
+            {
+              text: "Style",
+              collapsed: true,
+              items: [{ text: "Style", link: "/view/style/style" }],
+            },
+            {
+              text: "Text",
+              collapsed: true,
+              items: [{ text: "Text", link: "/view/text/text" }],
+            },
+          ],
+        },
+      ],
     },
     outline: {
       level: [2, 3],
