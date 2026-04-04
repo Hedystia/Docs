@@ -30,18 +30,6 @@ Configure your `tsconfig.json` to use the `@hedystia/view` JSX runtime:
 }
 ```
 
-## Vite Configuration
-
-```ts
-import { defineConfig } from "vite";
-
-export default defineConfig({
-  optimizeDeps: {
-    exclude: ["@hedystia/view"],
-  },
-});
-```
-
 ## Your First Component
 
 ```tsx
