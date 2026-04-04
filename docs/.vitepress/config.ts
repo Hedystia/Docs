@@ -222,7 +222,7 @@ export default defineConfig({
             { text: "Welcome", link: "/billing/start" },
             {
               text: "Installation",
-              collapsed: true,
+              collapsed: false,
               items: [
                 { text: "Requirements", link: "/billing/installation/require" },
                 { text: "Install", link: "/billing/installation/install" },
@@ -232,17 +232,17 @@ export default defineConfig({
             },
             {
               text: "Upgrade",
-              collapsed: true,
+              collapsed: false,
               items: [{ text: "Updating", link: "/billing/upgrade/update" }],
             },
             {
               text: "Admin",
-              collapsed: true,
+              collapsed: false,
               items: [{ text: "Admin Area", link: "/billing/admin/admin-area" }],
             },
             {
               text: "Extensions",
-              collapsed: true,
+              collapsed: false,
               items: [{ text: "Introduction", link: "/billing/extensions/intro" }],
             },
           ],
@@ -317,7 +317,7 @@ export default defineConfig({
             { text: "Getting Started", link: "/view/start" },
             {
               text: "Signals",
-              collapsed: true,
+              collapsed: false,
               items: [
                 { text: "Signals", link: "/view/signals/signals" },
                 { text: "Batch & Untrack", link: "/view/signals/batch" },
@@ -326,7 +326,7 @@ export default defineConfig({
             },
             {
               text: "Effects",
-              collapsed: true,
+              collapsed: false,
               items: [
                 { text: "On", link: "/view/effects/on" },
                 { text: "Once", link: "/view/effects/once" },
@@ -334,7 +334,7 @@ export default defineConfig({
             },
             {
               text: "JSX",
-              collapsed: true,
+              collapsed: false,
               items: [
                 { text: "JSX", link: "/view/jsx/jsx" },
                 { text: "Reactive Patterns", link: "/view/jsx/reactive" },
@@ -342,17 +342,17 @@ export default defineConfig({
             },
             {
               text: "Render",
-              collapsed: true,
+              collapsed: false,
               items: [{ text: "Render", link: "/view/render/render" }],
             },
             {
               text: "Lifecycle",
-              collapsed: true,
+              collapsed: false,
               items: [{ text: "Lifecycle", link: "/view/lifecycle/lifecycle" }],
             },
             {
               text: "Flow",
-              collapsed: true,
+              collapsed: false,
               items: [
                 { text: "Show", link: "/view/flow/show" },
                 { text: "For", link: "/view/flow/for" },
@@ -363,17 +363,17 @@ export default defineConfig({
             },
             {
               text: "Context",
-              collapsed: true,
+              collapsed: false,
               items: [{ text: "Context", link: "/view/context/context" }],
             },
             {
               text: "Store",
-              collapsed: true,
+              collapsed: false,
               items: [{ text: "Store", link: "/view/store/store" }],
             },
             {
               text: "Fetch",
-              collapsed: true,
+              collapsed: false,
               items: [
                 { text: "Load", link: "/view/fetch/load" },
                 { text: "Action", link: "/view/fetch/action" },
@@ -381,17 +381,17 @@ export default defineConfig({
             },
             {
               text: "Scheduler",
-              collapsed: true,
+              collapsed: false,
               items: [{ text: "Scheduler", link: "/view/scheduler/scheduler" }],
             },
             {
               text: "Style",
-              collapsed: true,
+              collapsed: false,
               items: [{ text: "Style", link: "/view/style/style" }],
             },
             {
               text: "Text",
-              collapsed: true,
+              collapsed: false,
               items: [{ text: "Text", link: "/view/text/text" }],
             },
           ],
