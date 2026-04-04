@@ -18,19 +18,21 @@ const selectRef = ref<HTMLElement | null>(null)
 
 const packages = [
   { name: 'Framework', id: 'framework', icon: Box, path: '/framework/introduction' },
+  { name: 'View', id: 'view', icon: CreditCard, path: '/view/start' },
+  { name: 'DataBase', id: 'db', icon: Database, path: '/db/start' },
   { name: 'Validations', id: 'validations', icon: ShieldCheck, path: '/validations/start' },
   { name: 'Billing', id: 'billing', icon: CreditCard, path: '/billing/start' },
   { name: 'Cache', id: 'cache', icon: Zap, path: '/cache/start' },
-  { name: 'DataBase', id: 'db', icon: Database, path: '/db/start' },
   { name: 'Stats', id: 'stats', icon: BarChart3, path: '/stats/start' },
 ]
 
 const currentPackage = computed(() => {
   if (route.path.includes('/validations')) return packages[1]
-  if (route.path.includes('/billing')) return packages[2]
-  if (route.path.includes('/cache')) return packages[3]
-  if (route.path.includes('/db')) return packages[4]
-  if (route.path.includes('/stats')) return packages[5]
+  if (route.path.includes('/view')) return packages[2]
+  if (route.path.includes('/billing')) return packages[3]
+  if (route.path.includes('/cache')) return packages[4]
+  if (route.path.includes('/db')) return packages[5]
+  if (route.path.includes('/stats')) return packages[6]
   return packages[0]
 })
 
