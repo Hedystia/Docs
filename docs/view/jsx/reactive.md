@@ -1,15 +1,17 @@
 ---
 title: Reactive JSX Patterns
-description: How to make JSX reactive in @hedystia/view — the most important patterns to understand.
+description: Reactive JSX patterns in Hedystia View.
 ---
 
 # Reactive JSX Patterns
 
-This is the most important concept in `@hedystia/view`. **Components run once.** Reactivity comes from wrapping expressions in functions. The JSX runtime detects function children and function props, creating effects that update only the specific DOM nodes that need to change.
+Reactivity in @hedystia/view comes from wrapping expressions in functions. The JSX runtime detects function children and function props, creating effects that update only the specific DOM nodes that need to change.
 
 ## Static vs Reactive
 
 The critical distinction:
+
+<div v-pre>
 
 ```tsx
 import { sig, val, set } from "@hedystia/view";
@@ -23,11 +25,15 @@ const count = sig(0);
 <span>{() => val(count)}</span>
 ```
 
+</div>
+
 The first example reads `count` at component creation time and inserts that number as a static text node. The second wraps the read in a function — the JSX runtime creates an effect that re-runs the function and updates the text node whenever `count` changes.
 
 ## Reactive Text
 
 Use a function child to create reactive text content:
+
+<div v-pre>
 
 ```tsx
 import { sig, val, set, mount } from "@hedystia/view";
@@ -49,9 +55,13 @@ function Greeting() {
 mount(Greeting, document.getElementById("root")!);
 ```
 
+</div>
+
 ## Reactive Style
 
 Pass a function to `style` to make it reactive:
+
+<div v-pre>
 
 ```tsx
 import { sig, val, set, mount } from "@hedystia/view";
@@ -75,9 +85,13 @@ function ToggleColor() {
 mount(ToggleColor, document.getElementById("root")!);
 ```
 
+</div>
+
 ## Reactive Props
 
 Any non-event prop that receives a function becomes reactive:
+
+<div v-pre>
 
 ```tsx
 import { sig, val, set, mount } from "@hedystia/view";
@@ -101,9 +115,13 @@ function DynamicInput() {
 mount(DynamicInput, document.getElementById("root")!);
 ```
 
+</div>
+
 ## Reactive List
 
 Return an array from a function child to render a reactive list:
+
+<div v-pre>
 
 ```tsx
 import { sig, val, set, mount } from "@hedystia/view";
@@ -128,11 +146,15 @@ function TodoList() {
 mount(TodoList, document.getElementById("root")!);
 ```
 
+</div>
+
 For keyed, efficient list rendering, use the [`For`](/view/flow/for) component instead.
 
 ## Reactive Conditional
 
 Return different elements from a function child for conditional rendering:
+
+<div v-pre>
 
 ```tsx
 import { sig, val, set, mount } from "@hedystia/view";
@@ -154,6 +176,8 @@ function Toggle() {
 mount(Toggle, document.getElementById("root")!);
 ```
 
+</div>
+
 For cleaner conditional rendering, use the [`Show`](/view/flow/show) component.
 
 ## Summary
@@ -162,7 +186,7 @@ For cleaner conditional rendering, use the [`Show`](/view/flow/show) component.
 |---------|--------|----------------|
 | Static text | `{val(count)}` | No — read once |
 | Reactive text | `{() => val(count)}` | Yes |
-| Static style | `style={{ color: "red" }}` | No |
+| Static style | `style={ { color: "red" }}` | No |
 | Reactive style | `style={() => ({ color: val(c) })}` | Yes |
 | Static prop | `value={val(text)}` | No — set once |
 | Reactive prop | `value={() => val(text)}` | Yes |
