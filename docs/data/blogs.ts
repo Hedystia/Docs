@@ -8,6 +8,14 @@ export interface Blog {
 
 export const blogs: Blog[] = [
   {
+    title: "Hedystia 2.1 - Reactive UI Engine",
+    href: "/blog/2.1",
+    cover: "/blog/2.1/cover.png",
+    detail:
+      "Fine-grained reactive UI framework with no Virtual DOM, surgical DOM updates, and full JSX support",
+    date: "04 Apr 2026",
+  },
+  {
     title: "Hedystia 2.0 - Database ORM",
     href: "/blog/2.0",
     cover: "/blog/2.0/cover.png",
