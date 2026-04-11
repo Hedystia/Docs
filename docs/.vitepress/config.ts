@@ -313,87 +313,71 @@ export default defineConfig({
       "/view/": [
         {
           text: "View",
+          items: [{ text: "Getting Started", link: "/view/start" }],
+        },
+        {
+          text: "Signals",
+          collapsed: false,
           items: [
-            { text: "Getting Started", link: "/view/start" },
-            {
-              text: "Signals",
-              collapsed: false,
-              items: [
-                { text: "Signals", link: "/view/signals/signals" },
-                { text: "Batch & Untrack", link: "/view/signals/batch" },
-                { text: "Memo", link: "/view/signals/memo" },
-              ],
-            },
-            {
-              text: "Effects",
-              collapsed: false,
-              items: [
-                { text: "On", link: "/view/effects/on" },
-                { text: "Once", link: "/view/effects/once" },
-              ],
-            },
-            {
-              text: "JSX",
-              collapsed: false,
-              items: [
-                { text: "JSX", link: "/view/jsx/jsx" },
-                { text: "Reactive Patterns", link: "/view/jsx/reactive" },
-              ],
-            },
-            {
-              text: "Render",
-              collapsed: false,
-              items: [{ text: "Render", link: "/view/render/render" }],
-            },
-            {
-              text: "Lifecycle",
-              collapsed: false,
-              items: [{ text: "Lifecycle", link: "/view/lifecycle/lifecycle" }],
-            },
-            {
-              text: "Flow",
-              collapsed: false,
-              items: [
-                { text: "Show", link: "/view/flow/show" },
-                { text: "For", link: "/view/flow/for" },
-                { text: "Index", link: "/view/flow/index-component" },
-                { text: "Switch & Match", link: "/view/flow/switch" },
-                { text: "Portal", link: "/view/flow/portal" },
-              ],
-            },
-            {
-              text: "Context",
-              collapsed: false,
-              items: [{ text: "Context", link: "/view/context/context" }],
-            },
-            {
-              text: "Store",
-              collapsed: false,
-              items: [{ text: "Store", link: "/view/store/store" }],
-            },
-            {
-              text: "Fetch",
-              collapsed: false,
-              items: [
-                { text: "Load", link: "/view/fetch/load" },
-                { text: "Action", link: "/view/fetch/action" },
-              ],
-            },
-            {
-              text: "Scheduler",
-              collapsed: false,
-              items: [{ text: "Scheduler", link: "/view/scheduler/scheduler" }],
-            },
-            {
-              text: "Style",
-              collapsed: false,
-              items: [{ text: "Style", link: "/view/style/style" }],
-            },
-            {
-              text: "Text",
-              collapsed: false,
-              items: [{ text: "Text", link: "/view/text/text" }],
-            },
+            { text: "Signals", link: "/view/signals/signals" },
+            { text: "Batch & Untrack", link: "/view/signals/batch" },
+            { text: "Memo", link: "/view/signals/memo" },
+          ],
+        },
+        {
+          text: "Effects",
+          collapsed: false,
+          items: [
+            { text: "on", link: "/view/effects/on" },
+            { text: "once", link: "/view/effects/once" },
+            { text: "watch", link: "/view/effects/watch" },
+            { text: "watchAll", link: "/view/effects/watchAll" },
+          ],
+        },
+        {
+          text: "JSX",
+          collapsed: false,
+          items: [
+            { text: "JSX", link: "/view/jsx/jsx" },
+            { text: "Reactive Patterns", link: "/view/jsx/reactive" },
+          ],
+        },
+        {
+          text: "Flow",
+          collapsed: false,
+          items: [
+            { text: "Show", link: "/view/flow/show" },
+            { text: "For", link: "/view/flow/for" },
+            { text: "Index", link: "/view/flow/index-component" },
+            { text: "Switch & Match", link: "/view/flow/switch" },
+            { text: "Portal", link: "/view/flow/portal" },
+          ],
+        },
+        {
+          text: "Data",
+          collapsed: false,
+          items: [
+            { text: "Store", link: "/view/store/store" },
+            { text: "Context", link: "/view/context/context" },
+            { text: "Load", link: "/view/fetch/load" },
+            { text: "Action", link: "/view/fetch/action" },
+          ],
+        },
+        {
+          text: "Component",
+          collapsed: false,
+          items: [
+            { text: "Render", link: "/view/render/render" },
+            { text: "Lifecycle", link: "/view/lifecycle/lifecycle" },
+          ],
+        },
+        {
+          text: "Utilities",
+          collapsed: false,
+          items: [
+            { text: "Scheduler", link: "/view/scheduler/scheduler" },
+            { text: "Style", link: "/view/style/style" },
+            { text: "Text", link: "/view/text/text" },
           ],
         },
       ],
